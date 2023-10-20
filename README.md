@@ -2,32 +2,102 @@
 
 #### This is the assignment repo, it contains all the files that I worked on and all the files required for the assignment.
 
-### This is the login screen - 
-![Login screen](https://github.com/shital2807/SunbaseData_Repository3.git)
-
-### This is error page if wrong password is entered - 
-
-![errorpage](https://github.com/vimaurya/SunbaseData-Assignment/assets/140162190/1588f3cf-c482-47c0-a38a-252e7f7a4393)
-
-### After loggin in, showing detaills - 
-
-![CustomerDetails](https://github.com/vimaurya/SunbaseData-Assignment/assets/140162190/c577cf76-1759-4baa-b15b-5e449b89571e)
-
-![CustomerDetails](https://github.com/vimaurya/SunbaseData-Assignment/assets/140162190/80bf950c-c118-4fed-a5e1-1a645e69ec8d)
-
-## Add customer - 
-![addCustomer](https://github.com/vimaurya/SunbaseData-Assignment/assets/140162190/f2f95f1e-0c63-4402-bcdb-cc96d48075cb)
-
-## Delete customer - 
-![DeleteCustomer](https://github.com/vimaurya/SunbaseData-Assignment/assets/140162190/bc1ca682-804e-4dea-b57e-4869d3139b29)
-
-## Update customer - 
-![updateCustomer](https://github.com/vimaurya/SunbaseData-Assignment/assets/140162190/837a657b-b1c1-4939-8bd0-4828c214d4ca)
-
-### Extra feature - If someone tries to jump on any of the pages without loggin in the webfilter would redirect the user to login page : 
-### In the URL we can see that the user is requesting to see the customer list
-![feature](https://github.com/vimaurya/SunbaseData-Assignment/assets/140162190/72b397da-ae7a-4ae1-9428-d2408866f1e3)
-
+We have created some API's that you have to integrate.
+1. Authenticate user using the credentials specified. API uses Bearer authentication to
+authenticate further API calls. Authentication API will return a bearer token which you will
+have to pass in subsequent API calls.
+Path: https://qa2.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp
+Method: POST
+Body:
+{
+"login_id" : "test@sunbasedata.com",
+"password" :"Test@123"
+}
+This will return you a token, that you will have to pass in as Bearer token for further calls.
+2. Create a new Customer:
+Path: https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp
+Method: POST
+Parameters:
+cmd : create
+Header:
+Authorization: Bearer token_recieved_in_authentication_API_call
+Body:
+{
+"first_name": "Jane",
+"last_name": "Doe",
+"street": "Elvnu Street",
+"address": "H no 2 ",
+"city": "Delhi",
+"state": "Delhi",
+"email": "sam@gmail.com",
+"phone": "12345678"
+}
+first_name and last_name are mandatory parameters.
+Response:
+Success: 201, Successfully Created
+Failure: 400, First Name or Last Name is missing
+3. Get customer list:
+Path: https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp
+Method: GET
+Parameters:
+cmd : get_customer_list
+Header:
+Authorization: Bearer token_recieved_in_authentication_API_call
+Response: 200
+[{
+"first_name": "Jane",
+"last_name": "Doe",
+"street": "Elvnu Street",
+"address": "H no 2 ",
+"city": "Delhi",
+"state": "Delhi",
+"email": "sam@gmail.com",
+"phone": "12345678"
+}]
+4. Delete a customer
+Path: https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp
+Method: POST
+Parameters:
+cmd : delete
+uuid : uuid of a specific customer
+Header:
+Authorization: Bearer token_recieved_in_authentication_API_call
+Response:
+200, Successfully deleted
+500, Error Not deleted
+400, UUID not found
+5. Update a customer
+Path: https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp
+Method: POST
+Parameters:
+cmd : update
+uuid : uuid of a specific customer
+Header:
+Authorization: Bearer token_recieved_in_authentication_API_call
+Body:
+{
+"first_name": "Jane",
+"last_name": "Doe",
+"street": "Elvnu Street",
+"address": "H no 2 ",
+"city": "Delhi",
+"state": "Delhi",
+"email": "sam@gmail.com",
+"phone": "12345678"
+}
+Response:
+200, Successfully Updated
+500, UUID not found
+400, Body is Empty
+Notes:
+if you are passing in wrong value for cmd parameter, you will get 500, Invalid Command
+If for any API authentication fails you will get 401, Invalid Authorization
+You can test tool like postman to test these API's.
+Basic steps include:
+- create a basic UI in html. does not have to look pretty. basic Html table , form and
+buttons would do.
+- Basically we need ability to Login, view the list of customer, create a new customer,
+delete and update an existing customer.
 
 
 ## Thank You.
