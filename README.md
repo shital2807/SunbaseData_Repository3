@@ -1,7 +1,5 @@
 # SunbaseData-Assignment
 
-#### This is the assignment repo, it contains all the files that I worked on and all the files required for the assignment.
-
 We have created some API's that you have to integrate.
 1. Authenticate user using the credentials specified. API uses Bearer authentication to
 authenticate further API calls. Authentication API will return a bearer token which you will
@@ -98,7 +96,7 @@ Basic steps include:
 buttons would do.
 - Basically we need ability to Login, view the list of customer, create a new customer,
 delete and update an existing customer.
-
+#### This is the assignment repo, it contains all the files that I worked on and all the files required for the assignment.
 
 ## Thank You.
 
