@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4a8c97;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #4e8c93;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #4da3c0;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #e20c0c;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #f51010;
+        }
+
+        .login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #loginbutton {
+            background-color: #0cbd53;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #loginbutton:hover {
+            background-color: #17be52;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="login_id" name="login_id" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <div class="login">
+            <button type="submit" id="loginbutton">Login</button>
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').on('submit', function(event) {
+                event.preventDefault();
+                var loginId = $('#login_id').val();
+                var password = $('#password').val();
+                var data = {
+                    login_id: loginId,
+                    password: password
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://qa2.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        // Handle the success response as needed
+                        console.log(response);
+                        alert('Login successful');
+                        // Redirect to the desired page on successful login
+                        window.location.href = 'https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list';
+                    },
+                    error: function(error) {
+                        // Handle errors
+                        console.error(error);
+                        alert('Login failed. Please check your credentials.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

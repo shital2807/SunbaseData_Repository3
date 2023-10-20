@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Update Form</h2>
+        <form id="updateForm">
+            <div class="form-group">
+                <label for="uuidInput">UUID:</label>
+                <input type="text" class="form-control" id="uuidInput" placeholder="Enter UUID" name="uuid" required>
+            </div>
+            <div class="form-group">
+                <label for="firstNameInput">First Name:</label>
+                <input type="text" class="form-control" id="firstNameInput" placeholder="Enter First Name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastNameInput">Last Name:</label>
+                <input type="text" class="form-control" id="lastNameInput" placeholder="Enter Last Name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="streetInput">Street:</label>
+                <input type="text" class="form-control" id="streetInput" placeholder="Enter Street" name="street" required>
+            </div>
+            <div class="form-group">
+                <label for="addressInput">Address:</label>
+                <input type="text" class="form-control" id="addressInput" placeholder="Enter Address" name="address" required>
+            </div>
+            <div class "form-group">
+                <label for "cityInput">City:</label>
+                <input type "text" class "form-control" id "cityInput" placeholder "Enter City" name "city" required>
+            </div>
+            <div class "form-group">
+                <label for="stateInput">State:</label>
+                <input type="text" class="form-control" id="stateInput" placeholder="Enter State" name="state" required>
+            </div>
+            <div class "form-group">
+                <label for="emailInput">Email:</label>
+                <input type="email" class="form-control" id="emailInput" placeholder="Enter Email Address" name="email" required>
+            </div>
+            <div class "form-group">
+                <label for="phoneInput">Phone:</label>
+                <input type="tel" class="form-control" id="phoneInput" placeholder="+91 XXX"  name="phone" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#updateForm').on('submit', function(event) {
+                event.preventDefault();
+                var uuid = $('#uuidInput').val();
+                var firstName = $('#firstNameInput').val();
+                var lastName = $('#lastNameInput').val();
+                var street = $('#streetInput').val();
+                var address = $('#addressInput').val();
+                var city = $('#cityInput').val();
+                var state = $('#stateInput').val();
+                var email = $('#emailInput').val();
+                var phone = $('#phoneInput').val();
+
+                var data = {
+                    uuid: uuid,
+                    first_name: firstName,
+                    last_name: lastName,
+                    street: street,
+                    address: address,
+                    city: city,
+                    state: state,
+                    email: email,
+                    phone: phone
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=update',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': 'Bearer' 
+                    },
+                    success: function(response) {
+                        
+                        console.log(response);
+                        alert('User information updated successfully');
+                    },
+                    error: function(error) {
+                        // Handle errors
+                        console.error(error);
+                        alert('Error updating user information');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

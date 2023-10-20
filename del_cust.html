@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Delete User</h2>
+        <form id="deleteUserForm">
+            <div class="form-group">
+                <label for="uuidInput">User UUID:</label>
+                <input type="text" class="form-control" id="uuidInput" placeholder="Enter UUID" name="uuid" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#deleteUserForm').on('submit', function(event) {
+                event.preventDefault();
+                var uuid = $('#uuidInput').val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=delete&uuid=' + uuid,
+                    headers: {
+                        'Authorization': 'Bearer ' 
+                    },
+                    success: function(response) {
+                       
+                        console.log(response);
+                        alert('User deleted successfully');
+                    },
+                    error: function(error) {
+                       
+                        console.error(error);
+                        alert('Error deleting user');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
